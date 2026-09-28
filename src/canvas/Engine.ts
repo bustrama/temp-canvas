@@ -251,8 +251,9 @@ export class Engine {
     this.live = makeLayer('live');
     host.append(this.scene, this.live);
     const sceneCtx = this.scene.getContext('2d');
-    // `desynchronized` lets Chromium (Android/ChromeOS) skip the compositor for lower pen latency.
-    const liveCtx = this.live.getContext('2d', { desynchronized: true }) as CanvasRenderingContext2D | null;
+    // No `desynchronized`: on some Android devices (Samsung Galaxy) that low-latency canvas is put in a
+    // hardware overlay that ignores transparency, so this layer shows black over the scene below.
+    const liveCtx = this.live.getContext('2d');
     if (!sceneCtx || !liveCtx) throw new Error('Canvas 2D is not available');
     this.sceneCtx = sceneCtx;
     this.liveCtx = liveCtx;
