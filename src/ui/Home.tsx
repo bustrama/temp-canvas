@@ -6,6 +6,7 @@ import { CODE_LENGTH, generateCode, isValidCode, normalizeCode } from '@/shared/
 import { MAX_MEMBERS } from '@/shared/protocol';
 import { markCreating } from '@/sync/storage';
 import { DesktopIcon, TabletIcon } from './icons';
+import { PromoVideo } from './PromoVideo';
 import { ThemeToggle } from './ThemeToggle';
 
 export function Home() {
@@ -86,7 +87,9 @@ export function Home() {
           {touched && code.length === CODE_LENGTH && !valid && <p className="mt-2 text-sm text-[var(--danger)]">Codes use letters and digits 2–9 (no 0, 1, O or I).</p>}
         </div>
 
-        <p className="mt-6 text-center text-sm text-muted">Private, up to {MAX_MEMBERS} people, nothing kept after the session ends.</p>
+        <PromoVideo />
+
+        <p className="mt-4 text-center text-sm text-muted">Private, up to {MAX_MEMBERS} people, nothing kept after the session ends.</p>
       </div>
     </main>
   );
