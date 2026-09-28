@@ -1,0 +1,39 @@
+{
+  "name": "temp-canvas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -n web,relay -c magenta,cyan \"pnpm dev:web\" \"pnpm dev:relay\"",
+    "dev:web": "next dev -H 0.0.0.0",
+    "dev:relay": "wrangler dev -c relay/wrangler.jsonc --ip 0.0.0.0 --port 8787 --var ALLOWED_ORIGINS:private",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p relay",
+    "deploy:relay": "wrangler deploy -c relay/wrangler.jsonc"
+  },
+  "dependencies": {
+    "next": "16.3.6",
+    "perfect-freehand": "^1.2.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "uqr": "^0.1.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260928.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "concurrently": "^10.0.5",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "jsdom": "^30.1.1",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.2",
+    "wrangler": "^4.143.0"
+  },
+  "packageManager": "pnpm@10.11.1"
+}

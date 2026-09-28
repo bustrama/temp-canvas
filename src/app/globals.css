@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* Phones in landscape (and short windows): panels lay out wide instead of tall. */
+@custom-variant short (@media (max-height: 520px));
+
+/*
+ * Design tokens. Placeholder theme (warm neutrals + pastels) until the Claude Design system lands:
+ * swap values here, the components only use these tokens.
+ */
+:root {
+  color-scheme: light;
+  --bg: #f8f5f0;
+  --surface: #fffdf9;
+  --surface-2: #f1ece4;
+  --surface-3: #e8e1d6;
+  --border: #e3dbcf;
+  --text: #2b2a33;
+  --text-muted: #77716c;
+  --accent: #d97757;
+  --accent-soft: #f7dccf;
+  --accent-text: #8a3b22;
+  --ok: #3faa84;
+  --warn: #d4a017;
+  --danger: #d9534f;
+  --shadow: 0 1px 2px rgb(60 50 40 / 0.06), 0 8px 24px rgb(60 50 40 / 0.08);
+
+  /* Pastels for UI surfaces (chips, badges). */
+  --pastel-rose: #f8d3dc;
+  --pastel-peach: #fbdcc4;
+  --pastel-lemon: #faecb4;
+  --pastel-mint: #cdeedd;
+  --pastel-sky: #cfe3f8;
+  --pastel-lilac: #e2d8f6;
+
+  /* Ink on the canvas: deep enough to read on the light canvas. */
+  --ink-ink: #2b2a33;
+  --ink-rose: #e0607e;
+  --ink-peach: #e8894f;
+  --ink-lemon: #d4a017;
+  --ink-mint: #3faa84;
+  --ink-sky: #4a8fd9;
+  --ink-lilac: #9170d6;
+  --highlight-alpha: 0.35;
+
+  --canvas-bg: #fbf9f5;
+  --canvas-grid: rgb(120 110 100 / 0.22);
+  --canvas-selection: #4a8fd9;
+  --canvas-placeholder: rgb(120 110 100 / 0.12);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1b1a1f;
+  --surface: #24232a;
+  --surface-2: #2d2c33;
+  --surface-3: #37363e;
+  --border: #3a3941;
+  --text: #eceaf1;
+  --text-muted: #a19ea9;
+  --accent: #e8927a;
+  --accent-soft: #4a2f28;
+  --accent-text: #f7c4b3;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+
+  --pastel-rose: #5a3441;
+  --pastel-peach: #5b3e2e;
+  --pastel-lemon: #564a26;
+  --pastel-mint: #2c4d40;
+  --pastel-sky: #2d4259;
+  --pastel-lilac: #413658;
+
+  /* Ink on the dark canvas: light pastels. */
+  --ink-ink: #f1eff5;
+  --ink-rose: #f4a3b5;
+  --ink-peach: #f8bf94;
+  --ink-lemon: #f5de84;
+  --ink-mint: #97e0bf;
+  --ink-sky: #a3caf5;
+  --ink-lilac: #cbb6f5;
+  --highlight-alpha: 0.4;
+
+  --canvas-bg: #1f1e24;
+  --canvas-grid: rgb(220 215 230 / 0.13);
+  --canvas-selection: #a3caf5;
+  --canvas-placeholder: rgb(220 215 230 / 0.08);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--border);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-text);
+  --color-rose: var(--pastel-rose);
+  --color-peach: var(--pastel-peach);
+  --color-lemon: var(--pastel-lemon);
+  --color-mint: var(--pastel-mint);
+  --color-sky: var(--pastel-sky);
+  --color-lilac: var(--pastel-lilac);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The drawing surface: no scrolling, zooming, selection or callouts from the browser. */
+.canvas-host {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--canvas-bg);
+  background-image: radial-gradient(circle at 1px 1px, var(--grid-color, var(--canvas-grid)) 1.2px, transparent 1.3px);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+  cursor: crosshair;
+}
+.canvas-host[data-tool="hand"],
+.canvas-host[data-panning="true"] {
+  cursor: grab;
+}
+.canvas-host[data-tool="select"] {
+  cursor: default;
+}
+.canvas-host[data-tool="text"] {
+  cursor: text;
+}
+.canvas-host[data-tool="eraser"] {
+  cursor: none;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

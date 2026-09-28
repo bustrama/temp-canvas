@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "temp-canvas-relay",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "ROOMS", "class_name": "Room" }]
+  },
+  // Free plan requires SQLite-backed classes; the room never writes to storage.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
+  "vars": {
+    // Production origins (set to the Vercel URL once deployed). Local dev overrides this with --var.
+    "ALLOWED_ORIGINS": "http://localhost:3000"
+  }
+}
