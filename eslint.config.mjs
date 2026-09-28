@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "**/.wrangler/**",
+    // The promo video is a separate Remotion project with its own lint setup.
+    "video/**",
   ]),
 ]);
 
