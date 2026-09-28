@@ -1,7 +1,14 @@
+<img src="src/app/icon.svg" width="72" height="72" alt="" />
+
 # temp canvas
 
 A private, temporary infinite canvas for up to five people. Share your screen from the PC and draw
 on a tablet (Apple Pencil, S Pen): the ink looks like real handwriting instead of mouse scribbles.
+
+[![Drawing on a tablet shows up live on the laptop](docs/preview.gif)](https://temp-canvas.vercel.app/promo/temp-canvas.mp4)
+
+▶ [Watch the 20-second tour](https://temp-canvas.vercel.app/promo/temp-canvas.mp4) (with sound), or try it at
+[temp-canvas.vercel.app](https://temp-canvas.vercel.app).
 
 - **Private and temporary.** A session is a 4-character code (plus a QR code). There is no database
   and no account: the drawing lives in memory on the relay while someone is connected, and End
@@ -55,6 +62,12 @@ pnpm lint
    then run `pnpm deploy:relay`.
 2. **App (Vercel).** Set `NEXT_PUBLIC_RELAY_URL` to the relay's `wss://` URL (see `.env.example`) and
    deploy.
+
+## Promo video
+
+`video/` is the product video: a separate [Remotion](https://www.remotion.dev) project, where the
+video is React code and the music is composed by a small synthesizer in code, cut to the same beat
+(see [video/README.md](video/README.md)). The home screen plays a web copy from `public/promo/`.
 
 ## Limits
 
