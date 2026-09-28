@@ -10,7 +10,8 @@
   // Free plan requires SQLite-backed classes; the room never writes to storage.
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
   "vars": {
-    // Production origins (set to the Vercel URL once deployed). Local dev overrides this with --var.
-    "ALLOWED_ORIGINS": "http://localhost:3000"
+    // Sites allowed to connect: production, then Vercel preview/deployment URLs (`*` = one label
+    // part). Local dev overrides this with --var.
+    "ALLOWED_ORIGINS": "https://temp-canvas.vercel.app,https://temp-canvas-*-bakiclaw-1743s-projects.vercel.app"
   }
 }
